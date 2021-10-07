@@ -10,17 +10,48 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function assertHasLink($response, $href)
+    public function assertDomHasLink($response, $href)
+    {
+        $this->assertDomHasTag($response, 'a', [
+            'href' => $href
+        ]);
+    }
+
+    public function assertDomHasTag($response, $tagName, $attributes = [])
+    {
+        $selector = $this->buildXpathSelector($tagName, $attributes);
+
+        $nodeList = $this->query(
+            $response->getContent(),
+            $selector
+        );
+
+        $this->assertGreaterThan(
+            0,
+            $nodeList->count(),
+            "Expected at least one '$selector' tag in DOM"
+        );
+    }
+
+    public function buildXpathSelector($tagName, $attributes)
+    {
+        $selector = "//$tagName";
+
+        foreach ($attributes as $attribute => $value) {
+            $selector .= "[@$attribute='$value']";
+        }
+
+        return $selector;
+    }
+
+    protected function query($html, $selector)
     {
         $dom = new DOMDocument();
 
-        $dom->loadHTML($response->getContent());
+        $dom->loadHTML($html);
 
         $xpath = new DOMXPath($dom);
 
-        $this->assertGreaterThanOrEqual(
-            1,
-            $xpath->query("//a[@href='$href']")->count()
-        );
+        return $xpath->query($selector);
     }
 }

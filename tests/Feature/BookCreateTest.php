@@ -16,6 +16,6 @@ class BookCreateTest extends TestCase
     /** @depends test_show_create_book_page */
     public function test_it_has_link_to_all_books_page($response)
     {
-        $this->assertHasLink($response, '/books');
+        $this->assertDomHasLink($response, '/books');
     }
 }
