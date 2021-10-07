@@ -17,7 +17,7 @@ class BookIndexTest extends TestCase
     }
 
     /** @depends test_show_all_books */
-    public function test_it_has_link_to_create_book($response)
+    public function test_it_has_link_to_create_book_page($response)
     {
         $this->assertHasLink($response, '/books/create');
     }
