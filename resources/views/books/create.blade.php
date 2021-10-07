@@ -28,6 +28,7 @@
             type="number"
             min="1"
             max="1000"
+            require
         />
 
         <button type="submit">ذخیره</button>
