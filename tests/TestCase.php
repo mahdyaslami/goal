@@ -33,7 +33,7 @@ abstract class TestCase extends BaseTestCase
         );
     }
 
-    public function buildXpathSelector($tagName, $attributes)
+    protected function buildXpathSelector($tagName, $attributes)
     {
         $selector = "//$tagName";
 
