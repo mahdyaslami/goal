@@ -6,14 +6,14 @@ use App\Models\Book;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class BookTest extends TestCase
+class BookStoreTest extends TestCase
 {
     public function test_create_book()
     {
         $body = Book::factory()->raw();
 
         $this->request($body)
-            ->assertCreated();
+            ->assertRedirect('/books');
     }
 
     public function test_title_is_required()
@@ -38,7 +38,7 @@ class BookTest extends TestCase
         $body[$key] = $value;
 
         $this->request($body)
-            ->assertCreated();
+            ->assertSessionHasNoErrors();
     }
 
     public function assertValidationFail($key, $value)
