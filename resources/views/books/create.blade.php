@@ -31,6 +31,7 @@
         />
 
         <button type="submit">ذخیره</button>
+        <a href="/books">انصراف</a>
     </form>
 </body>
 

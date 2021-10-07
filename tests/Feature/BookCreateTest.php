@@ -12,4 +12,10 @@ class BookCreateTest extends TestCase
             ->assertOk()
             ->assertViewIs('books.create');
     }
+
+    /** @depends test_show_create_book_form */
+    public function test_it_has_link_to_all_books_page($response)
+    {
+        $this->assertHasLink($response, '/books');
+    }
 }
