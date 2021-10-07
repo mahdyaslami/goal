@@ -10,6 +10,14 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    public function assertDomHasInput($response, $type, $name, $attributes = [])
+    {
+        $attributes['type'] = $type;
+        $attributes['name'] = $name;
+
+        $this->assertDomHasTag($response, 'input', $attributes);
+    }
+
     public function assertDomHasLink($response, $href)
     {
         $this->assertDomHasTag($response, 'a', [
