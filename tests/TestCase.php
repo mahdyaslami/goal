@@ -35,13 +35,15 @@ abstract class TestCase extends BaseTestCase
 
     protected function buildXpathSelector($tagName, $attributes)
     {
-        $selector = "//$tagName";
+        $attrWithConcatenatedKeyValue = [];
 
         foreach ($attributes as $attribute => $value) {
-            $selector .= "[@$attribute='$value']";
+            array_push($attrWithConcatenatedKeyValue, "@$attribute='$value'");
         }
 
-        return $selector;
+        $selector = implode(' and ', $attrWithConcatenatedKeyValue);
+
+        return "//$tagName" . ($selector ? "[$selector]" : '');
     }
 
     protected function query($html, $selector)
