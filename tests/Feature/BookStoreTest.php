@@ -3,11 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\Book;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class BookStoreTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_create_book()
     {
         $body = Book::factory()->raw();
