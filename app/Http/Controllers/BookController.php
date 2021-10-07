@@ -10,7 +10,7 @@ class BookController extends Controller
 {
     public function create()
     {
-        return;
+        return view('books.create');
     }
 
     public function store(BookRequest $request)

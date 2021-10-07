@@ -8,7 +8,8 @@ class BookCreateTest extends TestCase
 {
     public function test_show_create_book_form()
     {
-        $this->get('/books/create')
-            ->assertOk();
+        return $this->get('/books/create')
+            ->assertOk()
+            ->assertViewIs('books.create');
     }
 }
