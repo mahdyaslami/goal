@@ -17,7 +17,7 @@
             name="title" 
             label="عنوان" 
             type="text" 
-            maxLength="255" 
+            maxlength="255" 
             require 
         />
 
