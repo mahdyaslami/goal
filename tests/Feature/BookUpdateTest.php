@@ -24,15 +24,15 @@ class BookUpdateTest extends TestCase
 
     protected function assertValidationOk($key, $value)
     {
-        $this->assertValidate($key, $value, false);
+        $this->assertValidation($key, $value, false);
     }
 
     protected function assertValidationFail($key, $value)
     {
-        $this->assertValidate($key, $value);
+        $this->assertValidation($key, $value);
     }
 
-    protected function assertValidate($key, $value, $fail = true)
+    protected function assertValidation($key, $value, $fail = true)
     {
         $book = Book::factory()->create();
 
