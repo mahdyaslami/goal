@@ -29,7 +29,7 @@ abstract class TestCase extends BaseTestCase
         $this->assertGreaterThan(
             0,
             $nodeList->count(),
-            "Expected at least one '$selector' tag in DOM"
+            "Expected at least one '$selector' tag in DOM."
         );
     }
 
