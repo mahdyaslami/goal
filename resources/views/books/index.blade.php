@@ -7,6 +7,8 @@
     <title>Goal</title>
 </head>
 <body>
+    <a href="/books/create">کتاب جدید</a>
+
     <ul>
         @foreach($books as $book)
             <li>{{ $book->title }}</li>
