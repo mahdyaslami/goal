@@ -34,27 +34,32 @@ class BookStoreTest extends TestCase
         $this->assertValidationOk('title', Str::random(255));
     }
 
-    public function assertValidationOk($key, $value)
+    protected function assertValidationOk($key, $value)
+    {
+        $this->assertValidation($key, $value, false);
+    }
+
+    protected function assertValidationFail($key, $value)
+    {
+        $this->assertValidation($key, $value);
+    }
+
+    protected function assertValidation($key, $value, $fail = true)
     {
         $body = Book::factory()->raw();
 
         $body[$key] = $value;
 
-        $this->request($body)
-            ->assertSessionHasNoErrors();
+        $response = $this->request($body);
+
+        if ($fail) {
+            $response->assertSessionHasErrors($key);
+        } else {
+            $response->assertSessionHasNoErrors();
+        }
     }
 
-    public function assertValidationFail($key, $value)
-    {
-        $body = Book::factory()->raw();
-
-        $body[$key] = $value;
-
-        $this->request($body)
-            ->assertSessionHasErrors($key);
-    }
-
-    public function request($body)
+    protected function request($body)
     {
         return $this->post('/books', $body);
     }
