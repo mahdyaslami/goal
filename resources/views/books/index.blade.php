@@ -11,7 +11,10 @@
 
     <ul>
         @foreach($books as $book)
-            <li>{{ $book->title }}</li>
+            <li>
+                {{ $book->title }}
+                <a href="{{ $book->pathToEdit() }}">edit</a>
+            </li>
         @endforeach
     </ul>
 </body>
