@@ -10,4 +10,9 @@ class Book extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'page_count'];
+
+    public function pathToEdit()
+    {
+        return route('book-edit', ['book' => $this->id]);
+    }
 }
