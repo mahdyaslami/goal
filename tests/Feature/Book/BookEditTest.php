@@ -12,6 +12,7 @@ class BookEditTest extends TestCase
         $book = Book::factory()->create();
 
         $this->get($book->pathToEdit())
-            ->assertOk();
+            ->assertOk()
+            ->assertViewIs('books.edit');
     }
 }
