@@ -4,19 +4,22 @@ namespace Tests\Feature;
 
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
-class BookStoreTest extends TestCase
+class BookUpdateTest extends TestCase
 {
     use RefreshDatabase,
         HasBookRequest;
 
-    public function test_create_book()
+    public function test_update_book()
     {
-        $body = Book::factory()->raw();
+        $book = Book::factory()->create();
 
-        $this->request($body)
-            ->assertRedirect('/books');
+        $body = Arr::only($book->toArray(), ['title', 'page_count']);
+
+        $this->request($book->id, $body)
+            ->assertOk();
     }
 
     protected function assertValidationOk($key, $value)
@@ -31,11 +34,13 @@ class BookStoreTest extends TestCase
 
     protected function assertValidation($key, $value, $fail = true)
     {
-        $body = Book::factory()->raw();
+        $book = Book::factory()->create();
+
+        $body = Arr::only($book->toArray(), ['title', 'page_count']);
 
         $body[$key] = $value;
 
-        $response = $this->request($body);
+        $response = $this->request($book->id, $body);
 
         if ($fail) {
             $response->assertSessionHasErrors($key);
@@ -44,8 +49,8 @@ class BookStoreTest extends TestCase
         }
     }
 
-    protected function request($body)
+    protected function request($bookId, $body)
     {
-        return $this->post('/books', $body);
+        return $this->put("/books/{$bookId}", $body);
     }
 }

@@ -26,4 +26,13 @@ class BookController extends Controller
 
         return redirect('/books');
     }
+
+    public function update(BookRequest $request, Book $book)
+    {
+        $book->update(
+            $request->validated()
+        );
+
+        return $book;
+    }
 }
