@@ -14,14 +14,17 @@ class BookIndexTest extends TestCase
     {
         $book = Book::factory()->create();
 
-        return $this->get('/books')
+        $response = $this->get('/books')
             ->assertOk()
             ->assertSee($book->title);
+
+        return [$response, $book];
     }
 
     /** @depends test_show_all_books */
-    public function test_it_has_link_to_create_book_page($response)
+    public function test_it_has_link_to_create_book_page($args)
     {
+        $response = $args[0];
         $this->assertDomHasLink($response, '/books/create');
     }
 }
