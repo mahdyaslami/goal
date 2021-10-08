@@ -27,4 +27,13 @@ class BookIndexTest extends TestCase
         $response = $args[0];
         $this->assertDomHasLink($response, '/books/create');
     }
+
+    /** @depends test_show_all_books */
+    public function test_it_has_link_to_edit_book($args)
+    {
+        $response = $args[0];
+        $book = $args[1];
+
+        $this->assertDomHasLink($response, $book->pathToEdit());
+    }
 }
