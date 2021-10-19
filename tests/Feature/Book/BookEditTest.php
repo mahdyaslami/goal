@@ -19,6 +19,22 @@ class BookEditTest extends TestCase
             ->assertViewIs('books.edit');
     }
 
+    public function test_edit_page_contain_the_book_form()
+    {
+        $book = Book::factory()->create();
+
+        $res = $this->get($book->pathToEdit());
+
+        $this->assertDomHasTag($res, 'form', [
+            'action' => $book->pathToUpdate(),
+            'method' => 'POST'
+        ]);
+
+        $this->assertDomHasInput($res, 'hidden', '_method', [
+            'value' => 'PUT'
+        ]);
+    }
+
     public function test_edit_page_contain_the_book_title()
     {
         $book = Book::factory()->create();

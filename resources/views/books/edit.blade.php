@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <form action="/books" method="POST">
+    <form action="{{ $book->pathToUpdate() }}" method="POST">
         @csrf
         @method('PUT')
 
