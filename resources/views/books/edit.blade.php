@@ -10,9 +10,9 @@
 
 <body>
     @include('books.form', [
-        'action' => '/books',
-        'method' => 'POST']
-    )
+        'action' => $book->pathToUpdate(),
+        'method' => 'PUT'
+    ])
 </body>
 
 </html>

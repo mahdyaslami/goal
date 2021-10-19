@@ -15,9 +15,9 @@ class BookController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Book $book)
     {
-        return view('books.create');
+        return view('books.create', ['book' => $book]);
     }
 
     public function store(BookRequest $request)
@@ -25,6 +25,11 @@ class BookController extends Controller
         Book::create($request->validated());
 
         return redirect('/books');
+    }
+
+    public function edit(Book $book)
+    {
+        return view('books.edit', ['book' => $book]);
     }
 
     public function update(BookRequest $request, Book $book)
