@@ -11,6 +11,7 @@
 <body>
     <form action="/books" method="POST">
         @csrf
+        @method('PUT')
 
         <x-forms.input 
             id="title" 
@@ -18,6 +19,7 @@
             label="عنوان" 
             type="text" 
             maxlength="255" 
+            value="{{ $book->title }}"
             require 
         />
 
