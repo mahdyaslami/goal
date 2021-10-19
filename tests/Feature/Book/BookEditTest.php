@@ -22,5 +22,6 @@ class BookEditTest extends TestCase
         $this->assertHasEditFormForBook($response, $book);
         $this->assertHasInputForTitle($response, $book);
         $this->assertHasInputForPageCount($response, $book);
+        $this->assertHasLinkToAllBooksPage($response);
     }
 }
