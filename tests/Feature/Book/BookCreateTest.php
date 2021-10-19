@@ -17,13 +17,8 @@ class BookCreateTest extends TestCase
         $this->assertHasCreateFormForBook($response);
         $this->assertHasInputForTitle($response);
         $this->assertHasInputForPageCount($response);
+        $this->assertHasLinkToAllBooksPage($response);
 
         return $response;
-    }
-
-    /** @depends test_show_create_book_page */
-    public function test_it_has_link_to_all_books_page($response)
-    {
-        $this->assertDomHasLink($response, '/books');
     }
 }

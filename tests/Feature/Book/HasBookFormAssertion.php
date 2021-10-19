@@ -42,4 +42,9 @@ trait HasBookFormAssertion
             'require' => 'require'
         ]);
     }
+
+    public function assertHasLinkToAllBooksPage($response)
+    {
+        $this->assertDomHasLink($response, '/books');
+    }
 }
