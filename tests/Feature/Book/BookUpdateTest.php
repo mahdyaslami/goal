@@ -19,7 +19,7 @@ class BookUpdateTest extends TestCase
         $body = Arr::only($book->toArray(), ['title', 'page_count']);
 
         $this->request($book->id, $body)
-            ->assertOk();
+            ->assertRedirect('/books');
     }
 
     protected function assertValidationOk($key, $value)

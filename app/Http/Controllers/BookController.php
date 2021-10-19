@@ -38,6 +38,6 @@ class BookController extends Controller
             $request->validated()
         );
 
-        return $book;
+        return redirect('/books');
     }
 }
