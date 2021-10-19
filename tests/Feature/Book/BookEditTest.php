@@ -20,7 +20,7 @@ class BookEditTest extends TestCase
 
         return [
             'book' => $book,
-            'res' => $response
+            'response' => $response
         ];
     }
 
@@ -29,12 +29,12 @@ class BookEditTest extends TestCase
     {
         extract($args);
 
-        $this->assertDomHasTag($res, 'form', [
+        $this->assertDomHasTag($response, 'form', [
             'action' => $book->pathToUpdate(),
             'method' => 'POST'
         ]);
 
-        $this->assertDomHasInput($res, 'hidden', '_method', [
+        $this->assertDomHasInput($response, 'hidden', '_method', [
             'value' => 'PUT'
         ]);
     }
@@ -44,7 +44,7 @@ class BookEditTest extends TestCase
     {
         extract($args);
 
-        $this->assertDomHasInput($res, 'text', 'title', [
+        $this->assertDomHasInput($response, 'text', 'title', [
             'value' => $book->title,
             'maxlength' => 255,
             'require' => 'require'
@@ -56,7 +56,7 @@ class BookEditTest extends TestCase
     {
         extract($args);
 
-        $this->assertDomHasInput($res, 'number', 'page_count', [
+        $this->assertDomHasInput($response, 'number', 'page_count', [
             'value' => $book->page_count,
             'min' => 1,
             'max' => 1000,
