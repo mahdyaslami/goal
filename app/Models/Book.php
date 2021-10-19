@@ -15,4 +15,9 @@ class Book extends Model
     {
         return route('book-edit', ['book' => $this->id]);
     }
+
+    public function pathToUpdate()
+    {
+        return route('book-update', ['book' => $this->id]);
+    }
 }

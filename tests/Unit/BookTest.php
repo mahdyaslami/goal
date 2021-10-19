@@ -16,4 +16,14 @@ class BookTest extends TestCase
             $book->pathToEdit()
         );
     }
+
+    public function test_it_get_update()
+    {
+        $book = Book::factory()->create();
+
+        $this->assertEquals(
+            route('book-update', ['book' => $book->id]),
+            $book->pathToUpdate()
+        );
+    }
 }
