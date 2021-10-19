@@ -14,16 +14,20 @@ class BookEditTest extends TestCase
     {
         $book = Book::factory()->create();
 
-        $this->get($book->pathToEdit())
+        $response = $this->get($book->pathToEdit())
             ->assertOk()
             ->assertViewIs('books.edit');
+
+        return [
+            'book' => $book,
+            'res' => $response
+        ];
     }
 
-    public function test_edit_page_contain_the_book_form()
+    /** @depends test_show_edit_book_page */
+    public function test_it_contain_the_book_form($args)
     {
-        $book = Book::factory()->create();
-
-        $res = $this->get($book->pathToEdit());
+        extract($args);
 
         $this->assertDomHasTag($res, 'form', [
             'action' => $book->pathToUpdate(),
@@ -35,11 +39,10 @@ class BookEditTest extends TestCase
         ]);
     }
 
-    public function test_edit_page_contain_the_book_title()
+    /** @depends test_show_edit_book_page */
+    public function test_it_contain_the_book_title($args)
     {
-        $book = Book::factory()->create();
-
-        $res = $this->get($book->pathToEdit());
+        extract($args);
 
         $this->assertDomHasInput($res, 'text', 'title', [
             'value' => $book->title,
@@ -48,11 +51,10 @@ class BookEditTest extends TestCase
         ]);
     }
 
-    public function test_edit_page_contain_the_book_page_count()
+    /** @depends test_show_edit_book_page */
+    public function test_it_contain_the_book_page_count($args)
     {
-        $book = Book::factory()->create();
-
-        $res = $this->get($book->pathToEdit());
+        extract($args);
 
         $this->assertDomHasInput($res, 'number', 'page_count', [
             'value' => $book->page_count,
