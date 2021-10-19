@@ -14,6 +14,15 @@ class BookCreateTest extends TestCase
     }
 
     /** @depends test_show_create_book_page */
+    public function test_it_contain_book_form($response)
+    {
+        $this->assertDomHasTag($response, 'form', [
+            'action' => '/books',
+            'method' => 'POST'
+        ]);
+    }
+
+    /** @depends test_show_create_book_page */
     public function test_it_has_input_for_title($response)
     {
         $this->assertDomHasInput($response, 'text', 'title', [
