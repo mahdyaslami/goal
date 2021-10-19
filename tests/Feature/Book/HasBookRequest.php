@@ -30,4 +30,14 @@ trait HasBookRequest
     {
         $this->assertValidationFail('page_count', 'not-a-number');
     }
+
+    public function test_step_count_is_required()
+    {
+        $this->assertValidationFail('step_count', '');
+    }
+
+    public function test_step_count_is_integer()
+    {
+        $this->assertValidationFail('step_count', 'not-a-number');
+    }
 }
