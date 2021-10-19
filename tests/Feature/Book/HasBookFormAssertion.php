@@ -12,7 +12,7 @@ trait HasBookFormAssertion
         ]);
     }
 
-    private function assertHasEditFormForBook($response, $book)
+    private function assertHasEditFormForBook($response, $book = null)
     {
         $this->assertDomHasTag($response, 'form', [
             'action' => $book->pathToUpdate(),
@@ -24,19 +24,19 @@ trait HasBookFormAssertion
         ]);
     }
 
-    private function assertHasInputForTitle($response, $book)
+    private function assertHasInputForTitle($response, $book = null)
     {
         $this->assertDomHasInput($response, 'text', 'title', [
-            'value' => $book->title,
+            'value' => $book ? $book->title : '',
             'maxlength' => 255,
             'require' => 'require'
         ]);
     }
 
-    private function assertHasInputForPageCount($response, $book)
+    private function assertHasInputForPageCount($response, $book = null)
     {
         $this->assertDomHasInput($response, 'number', 'page_count', [
-            'value' => $book->page_count,
+            'value' => $book ? $book->page_count : '',
             'min' => 1,
             'max' => 1000,
             'require' => 'require'
