@@ -30,6 +30,7 @@
             type="number"
             min="1"
             max="1000"
+            value="{{ $book->page_count }}"
             require
         />
 

@@ -31,4 +31,18 @@ class BookEditTest extends TestCase
             'require' => 'require'
         ]);
     }
+
+    public function test_edit_page_contain_the_book_page_count()
+    {
+        $book = Book::factory()->create();
+
+        $res = $this->get($book->pathToEdit());
+
+        $this->assertDomHasInput($res, 'number', 'page_count', [
+            'value' => $book->page_count,
+            'min' => 1,
+            'max' => 1000,
+            'require' => 'require'
+        ]);
+    }
 }
