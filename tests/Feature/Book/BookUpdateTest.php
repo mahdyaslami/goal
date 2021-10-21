@@ -16,10 +16,10 @@ class BookUpdateTest extends TestCase
     {
         $book = Book::factory()->create();
 
-        $body = Arr::only($book->toArray(), ['title', 'page_count']);
+        $body = Arr::except($book->toArray(), ['id', 'created_at', 'updated_at']);
 
         $this->request($book->id, $body)
-            ->assertOk();
+            ->assertRedirect('/books');
     }
 
     protected function assertValidationOk($key, $value)
@@ -36,7 +36,7 @@ class BookUpdateTest extends TestCase
     {
         $book = Book::factory()->create();
 
-        $body = Arr::only($book->toArray(), ['title', 'page_count']);
+        $body = Arr::except($book->toArray(), ['id', 'created_at', 'updated_at']);
 
         $body[$key] = $value;
 

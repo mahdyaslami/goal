@@ -43,6 +43,16 @@ trait HasBookFormAssertion
         ]);
     }
 
+    private function assertHasInputForStepCount($response, $book = null)
+    {
+        $this->assertDomHasInput($response, 'number', 'step_count', [
+            'value' => $book ? $book->page_count : '',
+            'min' => 1,
+            'max' => 1000,
+            'require' => 'require'
+        ]);
+    }
+
     public function assertHasLinkToAllBooksPage($response)
     {
         $this->assertDomHasLink($response, '/books');

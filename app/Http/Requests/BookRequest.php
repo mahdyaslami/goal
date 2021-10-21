@@ -25,7 +25,8 @@ class BookRequest extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'page_count' => 'required|integer'
+            'page_count' => 'required|integer',
+            'step_count' => 'required|integer',
         ];
     }
 }

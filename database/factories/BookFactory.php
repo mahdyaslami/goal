@@ -23,7 +23,8 @@ class BookFactory extends Factory
     {
         return [
             'title' => $this->faker->domainName(),
-            'page_count' => $this->faker->numberBetween(1, 1000)
+            'page_count' => $this->faker->numberBetween(1, 1000),
+            'step_count' => $this->faker->numberBetween(1, 100)
         ];
     }
 }

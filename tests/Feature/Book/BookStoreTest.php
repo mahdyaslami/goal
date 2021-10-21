@@ -11,7 +11,7 @@ class BookStoreTest extends TestCase
     use RefreshDatabase,
         HasBookRequest;
 
-    public function test_create_book()
+    public function test_store_book()
     {
         $body = Book::factory()->raw();
 
