@@ -25,6 +25,17 @@
         require
     />
 
+    <x-forms.input
+        id="step_count"
+        name="step_count"
+        label="تعداد گام ها"
+        type="number"
+        min="1"
+        max="100"
+        value="{{ $book->step_count }}"
+        require
+    />
+
     <button type="submit">ذخیره</button>
     <a href="/books">انصراف</a>
 </form>
