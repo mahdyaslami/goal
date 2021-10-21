@@ -4,7 +4,7 @@ namespace Tests\Feature\Book;
 
 trait HasBookFormAssertion
 {
-    private function assertHasCreateFormForBook($response)
+    protected function assertHasCreateFormForBook($response)
     {
         $this->assertDomHasTag($response, 'form', [
             'action' => '/books',
@@ -12,7 +12,7 @@ trait HasBookFormAssertion
         ]);
     }
 
-    private function assertHasEditFormForBook($response, $book = null)
+    protected function assertHasEditFormForBook($response, $book = null)
     {
         $this->assertDomHasTag($response, 'form', [
             'action' => $book->pathToUpdate(),
@@ -24,7 +24,7 @@ trait HasBookFormAssertion
         ]);
     }
 
-    private function assertHasInputForTitle($response, $book = null)
+    protected function assertHasInputForTitle($response, $book = null)
     {
         $this->assertDomHasInput($response, 'text', 'title', [
             'value' => $book ? $book->title : '',
@@ -33,7 +33,7 @@ trait HasBookFormAssertion
         ]);
     }
 
-    private function assertHasInputForPageCount($response, $book = null)
+    protected function assertHasInputForPageCount($response, $book = null)
     {
         $this->assertDomHasInput($response, 'number', 'page_count', [
             'value' => $book ? $book->page_count : '',
@@ -43,7 +43,7 @@ trait HasBookFormAssertion
         ]);
     }
 
-    private function assertHasInputForStepCount($response, $book = null)
+    protected function assertHasInputForStepCount($response, $book = null)
     {
         $this->assertDomHasInput($response, 'number', 'step_count', [
             'value' => $book ? $book->page_count : '',
@@ -53,7 +53,7 @@ trait HasBookFormAssertion
         ]);
     }
 
-    public function assertHasLinkToAllBooksPage($response)
+    protected function assertHasLinkToAllBooksPage($response)
     {
         $this->assertDomHasLink($response, '/books');
     }
