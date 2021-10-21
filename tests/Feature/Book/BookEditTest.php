@@ -19,10 +19,6 @@ class BookEditTest extends TestCase
             ->assertOk()
             ->assertViewIs('books.edit');
 
-        $this->assertHasInputForTitle($response, $book);
-        $this->assertHasInputForPageCount($response, $book);
-        $this->assertHasLinkToAllBooksPage($response);
-
         return [
             'response' => $response,
             'book' => $book,
@@ -42,5 +38,7 @@ class BookEditTest extends TestCase
         $this->assertDomHasInput($response, 'hidden', '_method', [
             'value' => 'PUT'
         ]);
+
+        return $args;
     }
 }

@@ -14,10 +14,6 @@ class BookCreateTest extends TestCase
             ->assertOk()
             ->assertViewIs('books.create');
 
-        $this->assertHasInputForTitle($response);
-        $this->assertHasInputForPageCount($response);
-        $this->assertHasLinkToAllBooksPage($response);
-
         return $response;
     }
 
@@ -28,5 +24,9 @@ class BookCreateTest extends TestCase
             'action' => '/books',
             'method' => 'POST'
         ]);
+
+        return [
+            'response' => $response
+        ];
     }
 }

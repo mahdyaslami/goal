@@ -4,8 +4,11 @@ namespace Tests\Feature\Book;
 
 trait HasBookFormAssertion
 {
-    protected function assertHasInputForTitle($response, $book = null)
+    /** @depends test_has_form */
+    protected function test_has_input_for_title($args)
     {
+        extract($args);
+
         $this->assertDomHasInput($response, 'text', 'title', [
             'value' => $book ? $book->title : '',
             'maxlength' => 255,
@@ -13,8 +16,11 @@ trait HasBookFormAssertion
         ]);
     }
 
-    protected function assertHasInputForPageCount($response, $book = null)
+    /** @depends test_has_form */
+    protected function test_has_input_for_page_count($args)
     {
+        extract($args);
+
         $this->assertDomHasInput($response, 'number', 'page_count', [
             'value' => $book ? $book->page_count : '',
             'min' => 1,
@@ -23,8 +29,11 @@ trait HasBookFormAssertion
         ]);
     }
 
-    protected function assertHasInputForStepCount($response, $book = null)
+    /** @depends test_has_form */
+    protected function test_has_input_for_step_count($args)
     {
+        extract($args);
+
         $this->assertDomHasInput($response, 'number', 'step_count', [
             'value' => $book ? $book->page_count : '',
             'min' => 1,
@@ -33,8 +42,11 @@ trait HasBookFormAssertion
         ]);
     }
 
-    protected function assertHasLinkToAllBooksPage($response)
+    /** @depends test_has_form */
+    protected function test_has_link_to_books_page()
     {
+        extract($args);
+
         $this->assertDomHasLink($response, '/books');
     }
 }
