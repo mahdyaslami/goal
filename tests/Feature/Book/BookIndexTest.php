@@ -16,7 +16,11 @@ class BookIndexTest extends TestCase
 
         $response = $this->get('/books')
             ->assertOk()
-            ->assertSee($book->title);
+            ->assertSee([
+                $book->title,
+                $book->page_count,
+                $book->step_count
+            ]);
 
         return [$response, $book];
     }
