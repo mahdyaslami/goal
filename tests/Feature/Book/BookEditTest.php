@@ -8,8 +8,7 @@ use Tests\TestCase;
 
 class BookEditTest extends TestCase
 {
-    use RefreshDatabase;
-    use HasBookFormAssertion;
+    use RefreshDatabase, HasBookForm;
 
     public function test_show_edit_book_page()
     {
