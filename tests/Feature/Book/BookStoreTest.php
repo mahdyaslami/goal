@@ -17,6 +17,8 @@ class BookStoreTest extends TestCase
 
         $this->request($body)
             ->assertRedirect('/books');
+
+        $this->assertDatabaseHas('books', $body);
     }
 
     protected function assertValidationOk($key, $value)
