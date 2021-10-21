@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Book;
 
-trait HasBookFormAssertion
+trait HasBookForm
 {
     /** @depends test_has_form */
     protected function test_has_input_for_title($args)
