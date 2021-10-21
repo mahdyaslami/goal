@@ -11,7 +11,7 @@ class StepStoreTest extends TestCase
     {
         $body = Step::factory()->raw();
 
-        $this->post('/steps', $body)
+        $this->request($body)
             ->assertStatus(200);
 
         $this->assertDatabaseHas('steps', $body);
@@ -33,7 +33,12 @@ class StepStoreTest extends TestCase
 
         $body[$key] = $value;
 
-        $this->post('/steps', $body)
+        $this->request($body)
             ->assertSessionHasErrors($key);
+    }
+
+    protected function request($body)
+    {
+        return $this->post('/steps', $body);
     }
 }
