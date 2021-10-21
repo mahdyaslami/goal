@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class BookCreateTest extends TestCase
 {
-    use HasBookFormAssertion;
+    use HasBookForm;
 
     public function test_show_create_book_page()
     {
