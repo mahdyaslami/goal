@@ -4,26 +4,6 @@ namespace Tests\Feature\Book;
 
 trait HasBookFormAssertion
 {
-    protected function assertHasCreateFormForBook($response)
-    {
-        $this->assertDomHasTag($response, 'form', [
-            'action' => '/books',
-            'method' => 'POST'
-        ]);
-    }
-
-    protected function assertHasEditFormForBook($response, $book = null)
-    {
-        $this->assertDomHasTag($response, 'form', [
-            'action' => $book->pathToUpdate(),
-            'method' => 'POST'
-        ]);
-
-        $this->assertDomHasInput($response, 'hidden', '_method', [
-            'value' => 'PUT'
-        ]);
-    }
-
     protected function assertHasInputForTitle($response, $book = null)
     {
         $this->assertDomHasInput($response, 'text', 'title', [

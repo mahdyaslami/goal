@@ -14,11 +14,19 @@ class BookCreateTest extends TestCase
             ->assertOk()
             ->assertViewIs('books.create');
 
-        $this->assertHasCreateFormForBook($response);
         $this->assertHasInputForTitle($response);
         $this->assertHasInputForPageCount($response);
         $this->assertHasLinkToAllBooksPage($response);
 
         return $response;
+    }
+
+    /** @depends test_show_create_book_page */
+    protected function test_has_form($response)
+    {
+        $this->assertDomHasTag($response, 'form', [
+            'action' => '/books',
+            'method' => 'POST'
+        ]);
     }
 }
