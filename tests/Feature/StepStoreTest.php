@@ -16,4 +16,24 @@ class StepStoreTest extends TestCase
 
         $this->assertDatabaseHas('steps', $body);
     }
+
+    public function test_index_is_required()
+    {
+        $this->assertValidationFail('index', '');
+    }
+
+    public function test_description_is_required()
+    {
+        $this->assertValidationFail('description', '');
+    }
+
+    public function assertValidationFail($key, $value)
+    {
+        $body = Step::factory()->raw();
+
+        $body[$key] = $value;
+
+        $this->post('/steps', $body)
+            ->assertSessionHasErrors($key);
+    }
 }

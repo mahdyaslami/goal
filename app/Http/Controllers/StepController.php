@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StepRequest;
 use App\Models\Step;
-use Illuminate\Http\Request;
 
 class StepController extends Controller
 {
-    public function store(Request $request)
+    public function store(StepRequest $request)
     {
-        Step::create($request->all());
+        Step::create($request->validated());
     }
 }
