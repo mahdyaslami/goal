@@ -29,4 +29,17 @@ class BookCreateTest extends TestCase
             'response' => $response
         ];
     }
+
+    /** @depends test_has_form */
+    protected function test_has_input_for_step_count($args)
+    {
+        extract($args);
+
+        $this->assertDomHasInput($response, 'number', 'step_count', [
+            'value' => $book ? $book->page_count : '',
+            'min' => 1,
+            'max' => 1000,
+            'require' => 'require'
+        ]);
+    }
 }
