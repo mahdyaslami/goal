@@ -17,9 +17,9 @@ class StepStoreTest extends TestCase
         $this->assertDatabaseHas('steps', $body);
     }
 
-    public function test_index_is_required()
+    public function test_book_id_is_required()
     {
-        $this->assertValidationFail('index', '');
+        $this->assertValidationFail('book_id', '');
     }
 
     public function test_description_is_required()

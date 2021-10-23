@@ -9,7 +9,7 @@ class Step extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['index', 'description'];
+    protected $fillable = ['book_id', 'description'];
 
     public function book()
     {
