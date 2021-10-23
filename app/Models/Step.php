@@ -10,4 +10,9 @@ class Step extends Model
     use HasFactory;
 
     protected $fillable = ['index', 'description'];
+
+    public function book()
+    {
+        return $this->belongsTo(Book::class);
+    }
 }
