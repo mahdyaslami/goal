@@ -21,32 +21,10 @@ class BookController extends Controller
 
     public function store(BookRequest $request)
     {
-        $book = Book::create($request->validated());
-
-        $steps = $this->prepareSteps(
-            $book->page_count,
-            $request->step_count
-        );
-
-        $book->steps()->createMany($steps);
+        Book::create($request->validated())
+            ->createSteps($request->step_count);
 
         return redirect('/books');
-    }
-
-    public function prepareSteps($pageCount, $stepCount)
-    {
-        $result = [];
-        $step = ceil($pageCount / $stepCount);
-
-        for ($i = 0; $i < $stepCount; $i++) {
-            $stepGoal = $i * $step;
-
-            array_push($result, [
-                'description' => "To page {$stepGoal}."
-            ]);
-        }
-
-        return $result;
     }
 
     public function edit(Book $book)
