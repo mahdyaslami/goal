@@ -21,6 +21,16 @@ class BookStoreTest extends TestCase
         $this->assertDatabaseHas('books', $body);
     }
 
+    public function test_step_count_is_required()
+    {
+        $this->assertValidationFail('step_count', '');
+    }
+
+    public function test_step_count_is_integer()
+    {
+        $this->assertValidationFail('step_count', 'not-a-number');
+    }
+
     protected function assertValidationOk($key, $value)
     {
         $this->assertValidation($key, $value, false);
