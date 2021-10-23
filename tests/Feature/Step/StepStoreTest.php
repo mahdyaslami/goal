@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Step;
 
 use App\Models\Step;
 use Tests\TestCase;
