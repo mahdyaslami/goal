@@ -17,7 +17,6 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('title');
             $table->integer('page_count');
-            $table->integer('step_count');
             $table->timestamps();
         });
     }

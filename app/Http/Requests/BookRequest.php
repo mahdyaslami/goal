@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BookRequest extends FormRequest
 {
@@ -26,7 +27,11 @@ class BookRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'page_count' => 'required|integer',
-            'step_count' => 'required|integer',
+            'step_count' => [Rule::when(
+                $this->isMethod('POST'),
+                'required',
+                'exclude'
+            ), 'integer'],
         ];
     }
 }

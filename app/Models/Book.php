@@ -9,7 +9,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'page_count', 'step_count'];
+    protected $fillable = ['title', 'page_count'];
 
     public function pathToEdit()
     {

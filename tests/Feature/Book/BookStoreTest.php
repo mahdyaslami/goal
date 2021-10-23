@@ -4,6 +4,7 @@ namespace Tests\Feature\Book;
 
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class BookStoreTest extends TestCase
@@ -13,12 +14,13 @@ class BookStoreTest extends TestCase
 
     public function test_store_book()
     {
-        $body = Book::factory()->raw();
+        $book = Book::factory()->raw();
+        $body = array_merge(['step_count' => 0], $book);
 
         $this->request($body)
             ->assertRedirect('/books');
 
-        $this->assertDatabaseHas('books', $body);
+        $this->assertDatabaseHas('books', $book);
     }
 
     public function test_step_count_is_required()
@@ -43,7 +45,9 @@ class BookStoreTest extends TestCase
 
     protected function assertValidation($key, $value, $fail = true)
     {
-        $body = Book::factory()->raw();
+        $body = Book::factory()->raw([
+            'step_count' => 0
+        ]);
 
         $body[$key] = $value;
 
