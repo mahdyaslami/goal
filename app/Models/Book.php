@@ -20,4 +20,9 @@ class Book extends Model
     {
         return route('book-update', ['book' => $this->id]);
     }
+
+    public function steps()
+    {
+        return $this->hasMany(Step::class);
+    }
 }

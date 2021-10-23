@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Book;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 class BookTest extends TestCase
@@ -24,6 +25,16 @@ class BookTest extends TestCase
         $this->assertEquals(
             route('book-update', ['book' => $book->id]),
             $book->pathToUpdate()
+        );
+    }
+
+    public function test_has_steps()
+    {
+        $book = Book::factory()->create();
+
+        $this->assertInstanceOf(
+            Collection::class,
+            $book->steps
         );
     }
 }
