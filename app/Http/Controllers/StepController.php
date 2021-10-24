@@ -7,6 +7,11 @@ use App\Models\Step;
 
 class StepController extends Controller
 {
+    public function index()
+    {
+        # code...
+    }
+
     public function store(StepRequest $request)
     {
         Step::create($request->validated());

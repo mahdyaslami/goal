@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use App\Models\Step;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,7 @@ class StepFactory extends Factory
     public function definition()
     {
         return [
-            'index' => $this->faker->numberBetween(1, 10),
+            'book_id' => Book::factory(),
             'description' => $this->faker->sentence(),
         ];
     }

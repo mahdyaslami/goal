@@ -21,7 +21,8 @@ class BookController extends Controller
 
     public function store(BookRequest $request)
     {
-        Book::create($request->validated());
+        Book::create($request->validated())
+            ->createSteps($request->step_count);
 
         return redirect('/books');
     }
