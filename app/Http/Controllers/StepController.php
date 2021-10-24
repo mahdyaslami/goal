@@ -7,6 +7,11 @@ use App\Models\Step;
 
 class StepController extends Controller
 {
+    public function create()
+    {
+        # code...
+    }
+
     public function index()
     {
         # code...
