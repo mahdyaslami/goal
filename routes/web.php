@@ -19,5 +19,6 @@ Route::post('/books', 'BookController@store');
 Route::get('/books/{book}/edit', 'BookController@edit')->name('book-edit');
 Route::put('/books/{book}', 'BookController@update')->name('book-update');
 
-Route::post('/steps', 'StepController@store');
+Route::get('/books/{book}/steps', 'StepController@index');
 Route::get('/steps/create', 'StepController@create');
+Route::post('/steps', 'StepController@store');

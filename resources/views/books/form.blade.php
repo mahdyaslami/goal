@@ -25,6 +25,7 @@
         require
     />
 
+    @if ($method == 'POST')
     <x-forms.input
         id="step_count"
         name="step_count"
@@ -35,6 +36,7 @@
         value="{{ $book->step_count }}"
         require
     />
+    @endif
 
     <button type="submit">ذخیره</button>
     <a href="/books">انصراف</a>

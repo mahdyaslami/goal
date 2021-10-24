@@ -12,6 +12,11 @@ class StepController extends Controller
         # code...
     }
 
+    public function index()
+    {
+        # code...
+    }
+
     public function store(StepRequest $request)
     {
         Step::create($request->validated());

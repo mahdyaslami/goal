@@ -9,7 +9,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'page_count', 'step_count'];
+    protected $fillable = ['title', 'page_count'];
 
     public function pathToEdit()
     {
@@ -19,5 +19,26 @@ class Book extends Model
     public function pathToUpdate()
     {
         return route('book-update', ['book' => $this->id]);
+    }
+
+    public function steps()
+    {
+        return $this->hasMany(Step::class);
+    }
+
+    public function createSteps($count)
+    {
+        $steps = [];
+        $step = ceil($this->page_count / $count);
+
+        for ($i = 1; $i <= $count; $i++) {
+            $stepGoal = $i * $step;
+
+            array_push($steps, [
+                'description' => "To page {$stepGoal}."
+            ]);
+        }
+
+        return $this->steps()->createMany($steps);
     }
 }
