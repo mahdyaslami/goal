@@ -24,7 +24,7 @@ class BookTest extends TestCase
 
         $this->assertEquals(
             route('book-update', ['book' => $book->id]),
-            $book->pathToUpdate()
+            $book->path()
         );
     }
 

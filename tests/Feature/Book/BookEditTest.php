@@ -29,7 +29,7 @@ class BookEditTest extends TestCase
         extract($args);
 
         $this->assertDomHasTag($response, 'form', [
-            'action' => $book->pathToUpdate(),
+            'action' => $book->path(),
             'method' => 'POST'
         ]);
 
