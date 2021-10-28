@@ -22,11 +22,13 @@ class BookStoreTest extends TestCase
     {
         $this->body['step_count'] = 5;
 
-        $this->request($this->body)
-            ->assertRedirect('/books');
+        $response = $this->request($this->body);
 
         $this->assertDatabaseHas('books', $this->rawBook);
         $this->assertDatabaseCount('steps', 5);
+
+        $book = Book::first();
+        $response->assertRedirect($book->pathToEdit());
     }
 
     public function test_step_count_is_required()
