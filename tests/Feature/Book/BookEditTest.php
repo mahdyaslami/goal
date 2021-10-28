@@ -3,12 +3,11 @@
 namespace Tests\Feature\Book;
 
 use App\Models\Book;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class BookEditTest extends TestCase
 {
-    use RefreshDatabase, HasBookForm;
+    use HasBookForm;
 
     public function test_show_edit_book_page()
     {

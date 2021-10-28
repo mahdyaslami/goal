@@ -3,13 +3,10 @@
 namespace Tests\Feature\Book;
 
 use App\Models\Book;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class BookIndexTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_show_all_books()
     {
         $book = Book::factory()->create();
