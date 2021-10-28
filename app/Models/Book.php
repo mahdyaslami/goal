@@ -41,4 +41,9 @@ class Book extends Model
 
         return $this->steps()->createMany($steps);
     }
+
+    public function recentlyCreated()
+    {
+        return $this->created_at->diffInSeconds() < 5;
+    }
 }

@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
@@ -55,5 +56,16 @@ class BookTest extends TestCase
             'To page 10.',
             $steps[1]->description
         );
+    }
+
+    public function test_it_recently_created_if_created_5s_ago()
+    {
+        $book = Book::factory()->create();
+
+        $this->assertTrue($book->recentlyCreated());
+
+        Carbon::setTestNow(Carbon::now()->add('5s'));
+
+        $this->assertFalse($book->recentlyCreated());
     }
 }

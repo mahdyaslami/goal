@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <p>{{ $book->recentlyCreated() ? 'Book created.' : '' }}</p>
+
     @include('books.form', [
         'action' => $book->path(),
         'method' => 'PUT'

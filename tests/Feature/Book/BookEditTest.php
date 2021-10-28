@@ -39,4 +39,12 @@ class BookEditTest extends TestCase
 
         return $args;
     }
+
+    /** @depends test_show_edit_book_page*/
+    public function test_show_book_created_message($args)
+    {
+        extract($args);
+
+        $response->assertSee('Book created.');
+    }
 }
