@@ -18,7 +18,7 @@ class BookCreateTest extends TestCase
     }
 
     /** @depends test_show_create_book_page */
-    public function test_has_form($response)
+    public function test_it_has_form($response)
     {
         $this->assertDomHasTag($response, 'form', [
             'action' => '/books',
@@ -31,8 +31,8 @@ class BookCreateTest extends TestCase
         ];
     }
 
-    /** @depends test_has_form */
-    public function test_has_input_for_step_count($args)
+    /** @depends test_it_has_form */
+    public function test_it_has_input_for_step_count($args)
     {
         extract($args);
 
