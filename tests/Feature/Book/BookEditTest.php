@@ -24,7 +24,7 @@ class BookEditTest extends TestCase
     }
 
     /** @depends test_show_edit_book_page*/
-    protected function test_has_from($args)
+    public function test_has_form($args)
     {
         extract($args);
 

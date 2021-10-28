@@ -18,7 +18,7 @@ class BookCreateTest extends TestCase
     }
 
     /** @depends test_show_create_book_page */
-    protected function test_has_form($response)
+    public function test_has_form($response)
     {
         $this->assertDomHasTag($response, 'form', [
             'action' => '/books',
@@ -26,19 +26,19 @@ class BookCreateTest extends TestCase
         ]);
 
         return [
-            'response' => $response
+            'response' => $response,
+            'book' => null
         ];
     }
 
     /** @depends test_has_form */
-    protected function test_has_input_for_step_count($args)
+    public function test_has_input_for_step_count($args)
     {
         extract($args);
 
         $this->assertDomHasInput($response, 'number', 'step_count', [
-            'value' => $book ? $book->page_count : '',
             'min' => 1,
-            'max' => 1000,
+            'max' => 100,
             'require' => 'require'
         ]);
     }

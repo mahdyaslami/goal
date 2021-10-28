@@ -5,7 +5,7 @@ namespace Tests\Feature\Book;
 trait HasBookForm
 {
     /** @depends test_has_form */
-    protected function test_has_input_for_title($args)
+    public function test_has_input_for_title($args)
     {
         extract($args);
 
@@ -17,7 +17,7 @@ trait HasBookForm
     }
 
     /** @depends test_has_form */
-    protected function test_has_input_for_page_count($args)
+    public function test_has_input_for_page_count($args)
     {
         extract($args);
 
@@ -30,7 +30,7 @@ trait HasBookForm
     }
 
     /** @depends test_has_form */
-    protected function test_has_link_to_books_page()
+    public function test_has_link_to_books_page($args)
     {
         extract($args);
 
