@@ -15,20 +15,26 @@ class BookStoreTest extends TestCase
 
         $this->rawBook = Book::factory()->raw();
 
-        $this->body = array_merge(['step_count' => 0], $this->rawBook);
+        $this->body = array_merge(['step_count' => 1], $this->rawBook);
     }
 
     public function test_store_book()
     {
-        $this->body['step_count'] = 5;
-
         $response = $this->request($this->body);
 
         $this->assertDatabaseHas('books', $this->rawBook);
-        $this->assertDatabaseCount('steps', 5);
 
         $book = Book::first();
         $response->assertRedirect($book->pathToEdit());
+    }
+
+    public function test_create_steps_after_storing_book()
+    {
+        $this->body['step_count'] = 2;
+
+        $this->request($this->body);
+
+        $this->assertDatabaseCount('steps', 2);
     }
 
     public function test_step_count_is_required()
