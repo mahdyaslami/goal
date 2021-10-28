@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class StepStoreTest extends TestCase
 {
-    public function test_store_step()
+    public function test_it_store_new_step()
     {
         $body = Step::factory()->raw();
 

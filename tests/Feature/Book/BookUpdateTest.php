@@ -8,7 +8,8 @@ use Tests\TestCase;
 class BookUpdateTest extends TestCase
 {
     use HasBookRequest;
-    public function test_update_book()
+
+    public function test_it_update_a_book()
     {
         $book = Book::factory()->create();
 

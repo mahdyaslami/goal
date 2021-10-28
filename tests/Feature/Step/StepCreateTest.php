@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class StepCreateTest extends TestCase
 {
-    public function test_get_create_step_page()
+    public function test_show_create_step_page()
     {
         $this->get('/steps/create')
             ->assertOk();

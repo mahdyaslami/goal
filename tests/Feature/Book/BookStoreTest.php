@@ -18,7 +18,7 @@ class BookStoreTest extends TestCase
         $this->body = array_merge(['step_count' => 1], $this->rawBook);
     }
 
-    public function test_store_book()
+    public function test_it_store_new_book()
     {
         $response = $this->request($this->body);
 
@@ -28,7 +28,7 @@ class BookStoreTest extends TestCase
         $response->assertRedirect($book->pathToEdit());
     }
 
-    public function test_create_steps_after_storing_book()
+    public function test_it_create_steps()
     {
         $this->body['step_count'] = 2;
 
