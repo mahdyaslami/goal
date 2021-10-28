@@ -8,15 +8,24 @@ use Tests\TestCase;
 class BookStoreTest extends TestCase
 {
     use HasBookRequest;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->rawBook = Book::factory()->raw();
+
+        $this->body = array_merge(['step_count' => 0], $this->rawBook);
+    }
+
     public function test_store_book()
     {
-        $book = Book::factory()->raw();
-        $body = array_merge(['step_count' => 5], $book);
+        $this->body['step_count'] = 5;
 
-        $this->request($body)
+        $this->request($this->body)
             ->assertRedirect('/books');
 
-        $this->assertDatabaseHas('books', $book);
+        $this->assertDatabaseHas('books', $this->rawBook);
         $this->assertDatabaseCount('steps', 5);
     }
 
@@ -42,13 +51,9 @@ class BookStoreTest extends TestCase
 
     protected function assertValidation($key, $value, $fail = true)
     {
-        $body = Book::factory()->raw([
-            'step_count' => 0
-        ]);
+        $this->body[$key] = $value;
 
-        $body[$key] = $value;
-
-        $response = $this->request($body);
+        $response = $this->request($this->body);
 
         if ($fail) {
             $response->assertSessionHasErrors($key);
