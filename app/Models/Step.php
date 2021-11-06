@@ -15,4 +15,9 @@ class Step extends Model
     {
         return $this->belongsTo(Book::class);
     }
+
+    public function path()
+    {
+        return route('step-update', ['step' => $this->id]);
+    }
 }
