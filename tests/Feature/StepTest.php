@@ -38,7 +38,7 @@ class StepTest extends TestCase
 
     protected function request($description)
     {
-        return $this->put("/steps/{$this->step->id}", [
+        return $this->put($this->step->path(), [
             'description' => $description
         ]);
     }
