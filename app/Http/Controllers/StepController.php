@@ -7,5 +7,8 @@ use App\Models\Step;
 
 class StepController extends Controller
 {
-    //
+    public function update(Step $step, StepRequest $request)
+    {
+        //
+    }
 }
