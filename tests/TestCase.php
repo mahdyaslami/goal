@@ -52,7 +52,7 @@ abstract class TestCase extends BaseTestCase
 
         $selector = implode(' and ', $attrWithConcatenatedKeyValue);
 
-        return "//$tagName" . ($selector ? "[$selector]" : '');
+        return ".//$tagName" . ($selector ? "[$selector]" : '');
     }
 
     protected function query($html, $selector)
