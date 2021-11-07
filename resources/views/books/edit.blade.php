@@ -16,7 +16,7 @@
         'method' => 'PUT'
     ])
 
-    @foreach ($book->steps as $index => $step)
+    @foreach ($book->steps->sortBy('id') as $index => $step)
         <form action="{{ $step->path() }}" method="POST">
             @csrf
             @method('PUT')
