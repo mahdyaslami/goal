@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect('/', '/books');
+
 Route::put('/steps/{step}', 'StepController@update')->name('step-update');
 
 Route::get('/books', 'BookController@index');
