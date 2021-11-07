@@ -13,7 +13,7 @@ class BookEditTest extends TestCase
     {
         parent::setUp();
 
-        $this->book = Book::factory()->create();
+        $this->book = Book::factory()->hasSteps(2)->create();
         $this->response = $this->get($this->book->pathToEdit());
     }
 
@@ -41,5 +41,28 @@ class BookEditTest extends TestCase
     public function test_show_book_created_message()
     {
         $this->response->assertSee('Book created.');
+    }
+
+    /** @depends test_show_edit_book_page */
+    public function test_show_form_for_each_steps()
+    {
+        foreach ($this->book->steps as $step) {
+            $form = $this->assertDomHasTag($this->response, 'form', [
+                'action' => $step->path(),
+                'method' => 'POST'
+            ]);
+
+            $this->assertDomHasInput($this->response, 'hidden', '_method', [
+                'value' => 'PUT'
+            ], $form);
+
+            $this->assertDomHasInput($this->response, 'text', 'description', [
+                'value' => $step->description
+            ], $form);
+
+            $this->assertDomHasTag($this->response, 'button', [
+                'type' => 'submit'
+            ], $form);
+        }
     }
 }

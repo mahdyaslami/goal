@@ -15,6 +15,24 @@
         'action' => $book->path(),
         'method' => 'PUT'
     ])
+
+    @foreach ($book->steps as $index => $step)
+        <form action="{{ $step->path() }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <x-forms.input
+                id="step-{{ $index }}"
+                name="description"
+                label="توضیحات"
+                type="text"
+                value="{{ $step->description }}"
+                require
+            />
+
+            <button type="submit">ذخیره</button>
+        </form>
+    @endforeach
 </body>
 
 </html>
