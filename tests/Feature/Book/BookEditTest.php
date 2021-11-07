@@ -9,42 +9,37 @@ class BookEditTest extends TestCase
 {
     use HasBookForm;
 
-    public function test_show_edit_book_page()
+    public function setUp(): void
     {
-        $book = Book::factory()->create();
+        parent::setUp();
 
-        $response = $this->get($book->pathToEdit())
-            ->assertOk()
-            ->assertViewIs('books.edit');
-
-        return [
-            'response' => $response,
-            'book' => $book,
-        ];
+        $this->book = Book::factory()->create();
+        $this->response = $this->get($this->book->pathToEdit());
     }
 
-    /** @depends test_show_edit_book_page*/
-    public function test_it_has_form($args)
+    public function test_show_edit_book_page()
     {
-        extract($args);
+        $this->response
+            ->assertOk()
+            ->assertViewIs('books.edit');
+    }
 
-        $this->assertDomHasTag($response, 'form', [
-            'action' => $book->path(),
+    /** @depends test_show_edit_book_page */
+    public function test_it_has_form()
+    {
+        $this->assertDomHasTag($this->response, 'form', [
+            'action' => $this->book->path(),
             'method' => 'POST'
         ]);
 
-        $this->assertDomHasInput($response, 'hidden', '_method', [
+        $this->assertDomHasInput($this->response, 'hidden', '_method', [
             'value' => 'PUT'
         ]);
-
-        return $args;
     }
 
-    /** @depends test_show_edit_book_page*/
-    public function test_show_book_created_message($args)
+    /** @depends test_show_edit_book_page */
+    public function test_show_book_created_message()
     {
-        extract($args);
-
-        $response->assertSee('Book created.');
+        $this->response->assertSee('Book created.');
     }
 }

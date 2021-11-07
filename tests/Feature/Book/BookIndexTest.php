@@ -7,34 +7,34 @@ use Tests\TestCase;
 
 class BookIndexTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->book = Book::factory()->create();
+        $this->response = $this->get('/books');
+    }
+
     public function test_show_all_books()
     {
-        $book = Book::factory()->create();
-
-        $response = $this->get('/books')
+        $this->get('/books')
             ->assertOk()
             ->assertSee([
-                $book->title,
-                $book->page_count,
-                $book->step_count
+                $this->book->title,
+                $this->book->page_count,
+                $this->book->step_count
             ]);
-
-        return [$response, $book];
     }
 
     /** @depends test_show_all_books */
-    public function test_it_has_link_to_create_book_page($args)
+    public function test_it_has_link_to_create_book_page()
     {
-        $response = $args[0];
-        $this->assertDomHasLink($response, '/books/create');
+        $this->assertDomHasLink($this->response, '/books/create');
     }
 
     /** @depends test_show_all_books */
-    public function test_it_has_link_to_edit_book($args)
+    public function test_it_has_link_to_edit_book()
     {
-        $response = $args[0];
-        $book = $args[1];
-
-        $this->assertDomHasLink($response, $book->pathToEdit());
+        $this->assertDomHasLink($this->response, $this->book->pathToEdit());
     }
 }
