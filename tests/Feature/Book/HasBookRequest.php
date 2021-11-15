@@ -16,7 +16,7 @@ trait HasBookRequest
         $this->assertValidationFail('title', Str::random(256));
     }
 
-    public function test_title_should_be_at_least_255()
+    public function test_title_should_be_at_most_255()
     {
         $this->assertValidationOk('title', Str::random(255));
     }

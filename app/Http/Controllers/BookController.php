@@ -21,10 +21,11 @@ class BookController extends Controller
 
     public function store(BookRequest $request)
     {
-        Book::create($request->validated())
-            ->createSteps($request->step_count);
+        $book = Book::create($request->validated());
 
-        return redirect('/books');
+        $book->createSteps($request->step_count);
+
+        return redirect($book->pathToEdit());
     }
 
     public function edit(Book $book)

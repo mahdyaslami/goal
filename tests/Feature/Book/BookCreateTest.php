@@ -8,37 +8,36 @@ class BookCreateTest extends TestCase
 {
     use HasBookForm;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->response = $this->get('/books/create');
+        $this->book = null;
+    }
+
     public function test_show_create_book_page()
     {
-        $response = $this->get('/books/create')
+        $this->response
             ->assertOk()
             ->assertViewIs('books.create');
-
-        return $response;
     }
 
     /** @depends test_show_create_book_page */
-    protected function test_has_form($response)
+    public function test_it_has_form()
     {
-        $this->assertDomHasTag($response, 'form', [
+        $this->assertDomHasTag($this->response, 'form', [
             'action' => '/books',
             'method' => 'POST'
         ]);
-
-        return [
-            'response' => $response
-        ];
     }
 
-    /** @depends test_has_form */
-    protected function test_has_input_for_step_count($args)
+    /** @depends test_it_has_form */
+    public function test_it_has_input_for_step_count()
     {
-        extract($args);
-
-        $this->assertDomHasInput($response, 'number', 'step_count', [
-            'value' => $book ? $book->page_count : '',
+        $this->assertDomHasInput($this->response, 'number', 'step_count', [
             'min' => 1,
-            'max' => 1000,
+            'max' => 100,
             'require' => 'require'
         ]);
     }

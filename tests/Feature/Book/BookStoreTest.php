@@ -3,25 +3,38 @@
 namespace Tests\Feature\Book;
 
 use App\Models\Book;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class BookStoreTest extends TestCase
 {
-    use RefreshDatabase,
-        HasBookRequest;
+    use HasBookRequest;
 
-    public function test_store_book()
+    protected function setUp(): void
     {
-        $book = Book::factory()->raw();
-        $body = array_merge(['step_count' => 5], $book);
+        parent::setUp();
 
-        $this->request($body)
-            ->assertRedirect('/books');
+        $this->rawBook = Book::factory()->raw();
 
-        $this->assertDatabaseHas('books', $book);
-        $this->assertDatabaseCount('steps', 5);
+        $this->body = array_merge(['step_count' => 1], $this->rawBook);
+    }
+
+    public function test_it_store_new_book()
+    {
+        $response = $this->request($this->body);
+
+        $this->assertDatabaseHas('books', $this->rawBook);
+
+        $book = Book::first();
+        $response->assertRedirect($book->pathToEdit());
+    }
+
+    public function test_it_create_steps()
+    {
+        $this->body['step_count'] = 2;
+
+        $this->request($this->body);
+
+        $this->assertDatabaseCount('steps', 2);
     }
 
     public function test_step_count_is_required()
@@ -46,13 +59,9 @@ class BookStoreTest extends TestCase
 
     protected function assertValidation($key, $value, $fail = true)
     {
-        $body = Book::factory()->raw([
-            'step_count' => 0
-        ]);
+        $this->body[$key] = $value;
 
-        $body[$key] = $value;
-
-        $response = $this->request($body);
+        $response = $this->request($this->body);
 
         if ($fail) {
             $response->assertSessionHasErrors($key);

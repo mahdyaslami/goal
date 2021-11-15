@@ -16,7 +16,7 @@ class Book extends Model
         return route('book-edit', ['book' => $this->id]);
     }
 
-    public function pathToUpdate()
+    public function path()
     {
         return route('book-update', ['book' => $this->id]);
     }
@@ -40,5 +40,10 @@ class Book extends Model
         }
 
         return $this->steps()->createMany($steps);
+    }
+
+    public function recentlyCreated()
+    {
+        return $this->created_at->diffInSeconds() < 5;
     }
 }

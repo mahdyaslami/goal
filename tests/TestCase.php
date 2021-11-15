@@ -4,11 +4,12 @@ namespace Tests;
 
 use DOMDocument;
 use DOMXPath;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, RefreshDatabase;
 
     public function assertDomHasInput($response, $type, $name, $attributes = [])
     {
@@ -51,7 +52,7 @@ abstract class TestCase extends BaseTestCase
 
         $selector = implode(' and ', $attrWithConcatenatedKeyValue);
 
-        return "//$tagName" . ($selector ? "[$selector]" : '');
+        return ".//$tagName" . ($selector ? "[$selector]" : '');
     }
 
     protected function query($html, $selector)

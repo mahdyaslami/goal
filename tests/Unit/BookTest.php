@@ -3,12 +3,13 @@
 namespace Tests\Unit;
 
 use App\Models\Book;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 
 class BookTest extends TestCase
 {
-    public function test_it_get_edit_route()
+    public function test_it_get_path_to_edit()
     {
         $book = Book::factory()->create();
 
@@ -18,17 +19,17 @@ class BookTest extends TestCase
         );
     }
 
-    public function test_it_get_update()
+    public function test_it_get_path_to_update()
     {
         $book = Book::factory()->create();
 
         $this->assertEquals(
             route('book-update', ['book' => $book->id]),
-            $book->pathToUpdate()
+            $book->path()
         );
     }
 
-    public function test_has_steps()
+    public function test_it_has_many_steps()
     {
         $book = Book::factory()->create();
 
@@ -38,7 +39,7 @@ class BookTest extends TestCase
         );
     }
 
-    public function test_can_create_steps()
+    public function test_it_can_create_many_steps()
     {
         $book = Book::factory()->create([
             'page_count' => 10
@@ -55,5 +56,16 @@ class BookTest extends TestCase
             'To page 10.',
             $steps[1]->description
         );
+    }
+
+    public function test_it_recently_created_if_created_5s_ago()
+    {
+        $book = Book::factory()->create();
+
+        $this->assertTrue($book->recentlyCreated());
+
+        Carbon::setTestNow(Carbon::now()->add('5s'));
+
+        $this->assertFalse($book->recentlyCreated());
     }
 }

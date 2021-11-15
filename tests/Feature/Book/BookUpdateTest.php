@@ -3,16 +3,13 @@
 namespace Tests\Feature\Book;
 
 use App\Models\Book;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class BookUpdateTest extends TestCase
 {
-    use RefreshDatabase,
-        HasBookRequest;
+    use HasBookRequest;
 
-    public function test_update_book()
+    public function test_it_update_a_book()
     {
         $book = Book::factory()->create();
 

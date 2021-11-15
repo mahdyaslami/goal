@@ -3,41 +3,66 @@
 namespace Tests\Feature\Book;
 
 use App\Models\Book;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class BookEditTest extends TestCase
 {
-    use RefreshDatabase, HasBookForm;
+    use HasBookForm;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->book = Book::factory()->hasSteps(2)->create();
+        $this->response = $this->get($this->book->pathToEdit());
+    }
 
     public function test_show_edit_book_page()
     {
-        $book = Book::factory()->create();
-
-        $response = $this->get($book->pathToEdit())
+        $this->response
             ->assertOk()
             ->assertViewIs('books.edit');
-
-        return [
-            'response' => $response,
-            'book' => $book,
-        ];
     }
 
-    /** @depends test_show_edit_book_page*/
-    protected function test_has_from($args)
+    /** @depends test_show_edit_book_page */
+    public function test_it_has_form()
     {
-        extract($args);
-
-        $this->assertDomHasTag($response, 'form', [
-            'action' => $book->pathToUpdate(),
+        $this->assertDomHasTag($this->response, 'form', [
+            'action' => $this->book->path(),
             'method' => 'POST'
         ]);
 
-        $this->assertDomHasInput($response, 'hidden', '_method', [
+        $this->assertDomHasInput($this->response, 'hidden', '_method', [
             'value' => 'PUT'
         ]);
+    }
 
-        return $args;
+    /** @depends test_show_edit_book_page */
+    public function test_show_book_created_message()
+    {
+        $this->response->assertSee('Book created.');
+    }
+
+    /** @depends test_show_edit_book_page */
+    public function test_show_form_for_each_steps()
+    {
+        foreach ($this->book->steps as $step) {
+            $form = $this->assertDomHasTag($this->response, 'form', [
+                'action' => $step->path(),
+                'method' => 'POST'
+            ]);
+
+            $this->assertDomHasInput($this->response, 'hidden', '_method', [
+                'value' => 'PUT'
+            ], $form);
+
+            $this->assertDomHasInput($this->response, 'text', 'description', [
+                'value' => $step->description
+            ], $form);
+
+            $this->assertDomHasTag($this->response, 'button', [
+                'type' => 'submit'
+            ], $form);
+        }
     }
 }

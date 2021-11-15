@@ -17,4 +17,14 @@ class StepTest extends TestCase
             $step->book
         );
     }
+
+    public function test_it_get_path()
+    {
+        $step = Step::factory()->create();
+
+        $this->assertEquals(
+            route('step-update', ['step' => $step->id]),
+            $step->path()
+        );
+    }
 }

@@ -24,7 +24,6 @@ class StepRequest extends FormRequest
     public function rules()
     {
         return [
-            'book_id' => 'required',
             'description' => 'required'
         ];
     }
